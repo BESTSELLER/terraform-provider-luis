@@ -1,0 +1,42 @@
+version: 2.1
+executors:
+  go_image:
+    docker:
+      - image: cimg/go:1.15
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASS
+jobs:
+  test:
+    executor: go_image
+    steps:
+      - checkout
+      - run:
+          name: install test report depencies
+          command: |
+            go get -u github.com/jstemmer/go-junit-report
+      - run:
+          name: go get
+          command: |
+            go get ./...
+      - run:
+          name: go lint
+          command: |
+            go get -u golang.org/x/lint/golint
+            golint ./...
+      - run:
+          name: go test - sonar
+          command: |
+            go get ./...
+            go test ./... -coverprofile=coverage.out
+            mv coverage.out /tmp/report.json
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - report.json
+workflows:
+  prod:
+    jobs:
+      - test:
+          context:
+            - shared
