@@ -100,11 +100,11 @@ workflows:
           <<: *test_filter
           <<: *context
       - secret-injector/dump-secrets:
-          vault-path: ES/terraform-provider/prod
+          vault-path: ES/data/terraform-provider/prod
           <<: *test_filter
           <<: *context
       - build:
-          name: build
+          name: build_n_release_test
           release-type: test
           requires:
             - secret-injector/dump-secrets
@@ -114,11 +114,11 @@ workflows:
   build-n-release:
     jobs:
       - secret-injector/dump-secrets:
-          vault-path: ES/terraform-provider/prod
+          vault-path: ES/data/terraform-provider/prod
           <<: *release_filter
           <<: *context
       - build:
-          name: build
+          name: build_n_release
           release-type: release
           requires:
             - secret-injector/dump-secrets
