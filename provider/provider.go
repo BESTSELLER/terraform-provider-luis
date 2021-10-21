@@ -1,9 +1,27 @@
 package provider
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/BESTSELLER/terraform-provider-luis/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
+
+func init() {
+	schema.DescriptionKind = schema.StringMarkdown
+
+	schema.SchemaDescriptionBuilder = func(s *schema.Schema) string {
+		desc := s.Description
+		if s.Default != nil {
+			desc += fmt.Sprintf(" Defaults to `%v`.", s.Default)
+		}
+		if s.Deprecated != "" {
+			desc += " " + s.Deprecated
+		}
+		return strings.TrimSpace(desc)
+	}
+}
 
 // Provider returns a terraform.ResourceProvider.
 func Provider() *schema.Provider {
@@ -12,22 +30,31 @@ func Provider() *schema.Provider {
 			"endpoint": {
 				Type:        schema.TypeString,
 				Required:    true,
+				Optional:    false,
 				DefaultFunc: schema.EnvDefaultFunc("LUIS_ENDPOINT", ""),
+				Description: "LUIS API Endpoint, e.g West Europe should be \"westeurope.api.cognitive.microsoft.com\"",
+				Default:     "westeurope.api.cognitive.microsoft.com",
 			},
 			"app_id": {
 				Type:        schema.TypeString,
 				Required:    true,
+				Optional:    false,
 				DefaultFunc: schema.EnvDefaultFunc("LUIS_APP_ID", ""),
+				Description: "LUIS Application ID",
 			},
 			"luis_version": {
 				Type:        schema.TypeString,
 				Required:    true,
+				Optional:    false,
 				DefaultFunc: schema.EnvDefaultFunc("LUIS_VERSION", ""),
+				Description: "Version of you LUIS application",
 			},
 			"subscription_key": {
 				Type:        schema.TypeString,
 				Required:    true,
+				Optional:    false,
 				DefaultFunc: schema.EnvDefaultFunc("LUIS_SUBSCRIPTION_KEY", ""),
+				Description: "Subscription key which provides access to this API. Found in your Cognitive Services accounts.",
 			},
 		},
 
@@ -35,8 +62,7 @@ func Provider() *schema.Provider {
 			"luis_closed_list_sublist": resourceClosedListSublist(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{},
-
-		ConfigureFunc: providerConfigure,
+		ConfigureFunc:  providerConfigure,
 	}
 }
 

@@ -18,6 +18,7 @@ func resourceClosedListSublist() *schema.Resource {
 		Importer: &schema.ResourceImporter{
 			State: resourceClosedListSublistImport,
 		},
+		Description: "Configures a sublist to an existing closed list",
 
 		Schema: map[string]*schema.Schema{
 			"closed_list_id": {
@@ -30,7 +31,7 @@ func resourceClosedListSublist() *schema.Resource {
 				Type:        schema.TypeString,
 				Required:    true,
 				ForceNew:    true,
-				Description: "Identifier",
+				Description: "Canonical form is the unique identifier. When using a closed list entity in LUIS, there always is a canonical form and optional multiple synonyms",
 			},
 			"list": {
 				Type: schema.TypeList,
@@ -39,7 +40,7 @@ func resourceClosedListSublist() *schema.Resource {
 				},
 				Required:    true,
 				ForceNew:    false,
-				Description: "list of synonyms",
+				Description: "List of synonyms",
 			},
 		},
 	}
