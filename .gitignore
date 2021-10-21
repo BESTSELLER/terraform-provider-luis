@@ -134,3 +134,7 @@ fabric.properties
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/go,jetbrains,vscode
+
+*.tf
+*.tfstate*
+.terraform*
