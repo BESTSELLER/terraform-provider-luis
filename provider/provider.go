@@ -29,8 +29,8 @@ func Provider() *schema.Provider {
 		Schema: map[string]*schema.Schema{
 			"endpoint": {
 				Type:        schema.TypeString,
-				Required:    true,
-				Optional:    false,
+				Required:    false,
+				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("LUIS_ENDPOINT", ""),
 				Description: "LUIS API Endpoint, e.g West Europe should be \"westeurope.api.cognitive.microsoft.com\"",
 				Default:     "westeurope.api.cognitive.microsoft.com",
