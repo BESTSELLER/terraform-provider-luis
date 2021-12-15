@@ -2,7 +2,7 @@ module github.com/BESTSELLER/terraform-provider-luis
 
 go 1.17
 
-require github.com/hashicorp/terraform-plugin-sdk/v2 v2.8.0
+require github.com/hashicorp/terraform-plugin-sdk/v2 v2.9.0
 
 require (
 	github.com/agext/levenshtein v1.2.2 // indirect
@@ -29,9 +29,8 @@ require (
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/oklog/run v1.0.0 // indirect
-	github.com/sethvargo/go-retry v0.1.0 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
-	github.com/zclconf/go-cty v1.8.4 // indirect
+	github.com/zclconf/go-cty v1.9.1 // indirect
 	golang.org/x/net v0.0.0-20210326060303-6b1517762897 // indirect
 	golang.org/x/sys v0.0.0-20210603081109-ebe580a85c40 // indirect
 	golang.org/x/text v0.3.5 // indirect
@@ -43,4 +42,7 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )
 
-require github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
+require (
+	github.com/google/go-cmp v0.5.6 // indirect
+	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
+)
